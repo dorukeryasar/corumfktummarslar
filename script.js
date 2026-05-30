@@ -1,10 +1,18 @@
 const player = document.getElementById("player");
 
 function playSong() {
-  player.pause();
   player.src = "https://drive.usercontent.google.com/uc?id=1xv5YJzYruYZikCoK6OTcbic0X8m3FYQ8&export=download";
+  
   player.load();
-  player.play().catch(err => {
-    alert("Tarayıcı oynatmayı engelledi, tekrar tıkla");
-  });
+
+  // küçük gecikme = tarayıcı engelini bypass eder
+  setTimeout(() => {
+    const playPromise = player.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        alert("▶ Tekrar butona bas");
+      });
+    }
+  }, 200);
 }
